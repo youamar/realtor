@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% block title %}Login{% endblock title %}
+{% load crispy_forms_tags %}
+
+{%block content%}
+<div class="form">
+  <form method="post" action="">
+    {% csrf_token %}
+    <div class="container p-3 mt-2 text-dark"></div>
+      <div class="container">
+        <h1>Login</h1>
+        <p>Fill out this form to establish a connection to Odoo.</p>
+        <hr>
+        {{ form.as_p }}
+        {% csrf_token %}
+        <hr>
+        <button type="submit" class="btn btn-dark">Login</button>
+      </div>
+      <br>
+      <div class="container signin">
+        <p>New to realtor? <a href="{% url 'register' %}">Join now </a>!</p>
+      </div>
+  </form>
+</div>
+{% if messages %}
+{% for message in messages %}
+<p class="messages_error">
+  {{ message }}
+</p>
+{% endfor %}
+{% endif %}
+{%endblock%}

@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+{% block title %}Shop{% endblock title %}
+{% load crispy_forms_tags %}
+
+{%block content%}
+{% if partner %}
+{% for p in partner %}
+<b>
+    <h3 class="text2">Connected as {{ p.name }}</h3>
+</b>
+<p class="text2">(email : {{ p.email }})</p>
+{% endfor %}
+{% endif %}
+<div class="apartments">
+    <div class="aparts">
+        {% for apartment in apartments %}
+        <article class="apart">
+            <header>
+                <h1>{{ apartment.name }}</h1>
+            </header>
+            <img class="image" height="200" width="200" src="data:image/gif;base64,{{apartment.apartment_picture}}">
+            <br>
+            <br>
+            <h3>{{ apartment.description }}</h3>
+            Price : {{ apartment.expected_price }} €<br>
+            Best Offerer : {{ apartment.best_offer_buyer.1 }}<br>
+            Best Offer: {{ apartment.best_offer_price }} €<br>
+            {% for product in products %}
+                {% if product.apartment != False%}
+                    {% if product.apartment.1 == apartment.name%}
+                       Available Quantity : {{ product.qty_available }}<br>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if apartment.qty_available != 0 %}
+            <form method="post" action="{% url 'offer' %}">
+                {% csrf_token %}
+                <br>
+                Make an offer :
+                <br>
+                <input type="number" name="offer" min={{apartment.best_offer_price}} step="0.01" required>
+                <br>
+                <input type="hidden" name="apartement_detail" value='{{apartment}}'>
+                <input type="hidden" name="partners" value='{{partner}}'>
+                <br>
+                <button type="submit" class="btn btn-dark">Offer</button>
+                {% else %}
+                <p class="not_available">
+                    Not Available anymore
+                </p>
+                {% endif %}
+            </form>
+            <br>
+        </article>
+        {% endfor %}
+    </div>
+    {%endblock%}

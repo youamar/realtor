@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<odoo>
+  <!-- Apartment Form view -->
+  <record id="view_form_realtor_apartment" model="ir.ui.view">
+    <field name="name">Apartment Form</field>
+    <field name="model">realtor.apartment</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          </header>
+        <sheet>
+          <group name="group_top">
+            <group name="group_left">
+              <field name="name" />
+              <field name="apartment_picture" height="100" width="100" widget="image"/>
+              <field name="description" />
+              <field name="availability_date" />
+              <field name="apartment_area" />
+              <field name="terrace_area" />
+              <field name="total_area" />
+            </group>
+            <group name="group_right">
+              <field name="expected_price" />
+              <field name="best_offer_buyer" />
+              <field name="best_offer_price" widget="one2many_offer" />
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- Apartment List view -->
+  <record id="view_tree_realtor_apartment" model="ir.ui.view">
+    <field name="name">Apartment Tree</field>
+    <field name="model">realtor.apartment</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="description"/>
+        <field name="availability_date"/>
+        <field name="expected_price"/>
+        <field name="best_offer_buyer"/>
+        <field name="best_offer_price"/>
+      </tree>
+    </field>
+  </record>
+  <!-- Apartment Search view -->
+  <record id="view_filter_realtor_apartment" model="ir.ui.view">
+    <field name="name">Apartment Filter</field>
+    <field name="model">realtor.apartment</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+      </search>
+    </field>
+  </record>
+</odoo>

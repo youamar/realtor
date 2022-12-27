@@ -1,0 +1,38 @@
+{% extends "_base.html" %}
+{% block title %}Login{% endblock title %}
+{% load crispy_forms_tags %}
+
+{%block content%}
+<div class="container p-3 mt-2 text-dark"></div>
+<div class="container d-flex justify-content-between align-items-start p-3">
+    <div class="form">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="container">
+                <h1>Login</h1>
+                <hr>
+                <label for="username">Name :</label>
+                <input type="text" name="username" id="username" required>
+                <br>
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" required><br>
+                <label for="password">Password :</label>
+                <input type="password" name="password" id="psw" required>
+                {% csrf_token %}
+                <hr>
+                <button type="submit" class="btn btn-dark">Login</button>
+            </div>
+            <br>
+            <div class="container signin">
+                <p>New buyer? Join the <a href="{% url 'buyer_register' %}">res_partner</a> team !</p>
+            </div>
+        </form>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <p class="messages_error">
+        {{ message }}
+    </p>
+    {% endfor %}
+    {% endif %}
+    {%endblock%}

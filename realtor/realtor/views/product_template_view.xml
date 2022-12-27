@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+<!-- Add a tab to the product.template form view for an apartment -->
+<record id="product_template_form_view" model="ir.ui.view">
+    <field name="name">product.template.form</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+        <notebook position="inside">
+            <page string="Apartments">
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                </group>
+            </page>
+        </notebook>
+    </field>
+</record>
+</odoo>

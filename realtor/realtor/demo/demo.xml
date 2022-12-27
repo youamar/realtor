@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1" >
+        <!-- Create a partner for the best offer buyer -->
+        <record id="partner_1" model="res.partner">
+            <field name="name">Yahya</field>
+            <field name="email">54915@etu.he2b.be</field>
+        </record>
+        <!-- Create apartments -->
+        <record id="apartment_1" model="realtor.apartment">
+            <field name="name">Apartment 1</field>
+            <field name="description">This is a first beautiful apartment built with love</field>
+            <field name="apartment_picture" type="base64" file="realtor/static/apartments/01.jpg"/>
+            <field name="availability_date" eval="(datetime.now() + relativedelta(months=7))"/>
+            <field name="expected_price">100000.00</field>
+            <field name="apartment_area">50.00</field>
+            <field name="terrace_area">10.00</field>
+            <field name="best_offer_buyer" ref="partner_1"/>
+            <field name="best_offer_price">90000.00</field>
+        </record>
+
+        <record id="apartment_2" model="realtor.apartment">
+            <field name="name">Apartment 2</field>
+            <field name="description">This is a second beautiful apartment built with love</field>
+            <field name="apartment_picture" type="base64" file="realtor/static/apartments/02.jpg"/>
+            <field name="availability_date" eval="(datetime.now() + relativedelta(months=7))"/>
+            <field name="expected_price">100000.00</field>
+            <field name="apartment_area">50.00</field>
+            <field name="terrace_area">10.00</field>
+            <field name="best_offer_buyer" ref="partner_1"/>
+            <field name="best_offer_price">90000.00</field>
+        </record>
+
+        <!-- Partner -->
+        <record id="estate_supplier" model="res.partner">
+            <field name="name">Immobilier ESI</field>
+            <field name="email">immobilier.esi@etu.he2b.be</field>
+            <field name="password">odoo</field>
+        </record>
+        <!-- Category -->
+        <record id="product.product_category_all" model="product.category">
+            <field name="name">All</field>
+        </record>
+        <!-- Create products apartment -->
+        <record id="apartment_product_1" model="product.product">
+            <field name="name">Apartment ESI</field>
+            <field name="default_code">apt_1</field>
+            <field name="description">A Nice Apartment From ESI</field>
+            <field name="standard_price">100000</field>
+            <field name="list_price">25000</field>
+            <field name="type">product</field>
+            <field name="tracking">lot</field>
+            <field name="qty_available">5</field>
+            <field name="apartment" search="[('name','=','Apartment 1')]" />
+            <field name="offerer" search="[('name','=','Immobilier ESI')]" />
+            <field name="categ_id" ref="product.product_category_all" />
+            <field name="uom_id" ref="uom.product_uom_unit" />
+            <field name="uom_po_id" ref="uom.product_uom_unit" />
+            <field name="image_1920" type="base64" file="realtor/static/apartments/01.jpg"/>
+        </record>
+
+        <record id="apartment_product_2" model="product.product">
+            <field name="name">Apartment ESI</field>
+            <field name="default_code">apt_2</field>
+            <field name="description">A Nice Apartment From ESI</field>
+            <field name="standard_price">100000</field>
+            <field name="list_price">25000</field>
+            <field name="type">product</field>
+            <field name="tracking">lot</field>
+            <field name="qty_available">5</field>
+            <field name="apartment" search="[('name','=','Apartment 2')]" />
+            <field name="offerer" search="[('name','=','Immobilier ESI')]" />
+            <field name="categ_id" ref="product.product_category_all" />
+            <field name="uom_id" ref="uom.product_uom_unit" />
+            <field name="uom_po_id" ref="uom.product_uom_unit" />
+            <field name="image_1920" type="base64" file="realtor/static/apartments/02.jpg"/>
+        </record>
+
+        <!-- Creation des lots -->
+        <record id="lot_apartment_1" model="stock.production.lot">
+            <field name="name">Lot 01</field>
+            <field name="product_id" ref="apartment_product_1" />
+            <field name="company_id" ref="base.main_company" />
+        </record>
+
+        <record id="lot_apartment_2" model="stock.production.lot">
+            <field name="name">Lot 02</field>
+            <field name="product_id" ref="apartment_product_2" />
+            <field name="company_id" ref="base.main_company" />
+        </record>
+
+        <!-- Stock Location -->
+        <record id="warehouse_location" model="stock.location">
+            <field name="name">Warehouse</field>
+            <field name="usage">internal</field>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <!-- Stock Quant -->
+        <record id="quant_product_apartment_01" model="stock.quant">
+            <field name="product_id" ref="apartment_product_1" />
+            <field name="location_id" ref="warehouse_location" />
+            <field name="quantity">100</field>
+            <field name="reserved_quantity">0</field>
+        </record>
+
+        <record id="quant_product_apartment_02" model="stock.quant">
+            <field name="product_id" ref="apartment_product_2" />
+            <field name="location_id" ref="warehouse_location" />
+            <field name="quantity">100</field>
+            <field name="reserved_quantity">0</field>
+        </record>
+
+        <!-- Stock Inventory -->
+        <record id="stock_inventory_0" model="stock.inventory">
+            <field name="name">Starting Inventory</field>
+        </record>
+        <!-- Stock Inventory Line  -->
+        <record id="stock_inventory_line_1" model="stock.inventory.line">
+            <field name="product_id" ref="apartment_product_1" />
+            <field name="product_uom_id" ref="uom.product_uom_unit" />
+            <field name="inventory_id" ref="stock_inventory_0" />
+            <field name="product_qty">12</field>
+            <field name="location_id" ref="warehouse_location"/>
+        </record>
+
+        <record id="stock_inventory_line_2" model="stock.inventory.line">
+            <field name="product_id" ref="apartment_product_2" />
+            <field name="product_uom_id" ref="uom.product_uom_unit" />
+            <field name="inventory_id" ref="stock_inventory_0" />
+            <field name="product_qty">12</field>
+            <field name="location_id" ref="warehouse_location"/>
+        </record>
+
+        <!-- Starting -->
+        <function model="stock.inventory" name="_action_start">
+            <function eval="[[('state','=','draft'),('id', '=', ref('stock_inventory_0'))]]"
+                model="stock.inventory" name="search" />
+        </function>
+        <!-- Validation -->
+        <function model="stock.inventory" name="action_validate">
+            <function
+                eval="[[('state','=','confirm'),('id', '=',ref('stock_inventory_0'))]]"
+                model="stock.inventory" name="search" />
+        </function>
+    </data>
+</odoo>

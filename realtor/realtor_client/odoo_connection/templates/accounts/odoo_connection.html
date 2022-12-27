@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+{% block title %}Buyers{% endblock title %}
+{% load crispy_forms_tags %}
+{%block content%}
+  <div class="text">
+    <br>
+    <h3>Potential buyers in our database :</h3>
+    <ul>
+      {% for user in users %}
+      <li>{{ user.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{%endblock%}

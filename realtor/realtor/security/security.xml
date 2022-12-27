@@ -1,0 +1,14 @@
+<odoo>
+	<record id="estate_agents" model="res.groups">
+	    <field name="name">Real estate manager</field>
+	</record>
+
+	<record id="real_estate_manager" model="res.users">
+	    <field name="name">Anakin Skywalker</field>
+	    <field name="email">anakin.skywalker@he2b.be</field>
+	    <field name="password">father</field>    
+	    <field name="login">anakin.skywalker@he2b.be</field>   
+	    <field name="employee">True</field>  
+	    <field name="groups_id" eval="[(6,0, [ref('base.group_user'),ref('realtor.estate_agents')])]"/>
+	</record>
+</odoo>

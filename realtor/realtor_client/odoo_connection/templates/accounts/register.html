@@ -1,0 +1,40 @@
+{% extends "_base.html" %}
+{% block title %}Register{% endblock title %}
+{% load crispy_forms_tags %}
+
+{%block content%}
+<div class="container p-3 mt-2 text-dark"></div>
+<div class="form">
+  <form method="post" action="">
+    {% csrf_token %}
+    <div class="container">
+      <h1>Register</h1>
+      <p>Fill out this form to join us now !</p>
+      <hr>
+      <label for="db">Odoo's DB :</label>
+      <input type="text" placeholder="Enter database name (dev01)" name="db" id="name" required><br>
+      <label for="url">Odoo's Url :</label>
+      <input type="text" placeholder="Enter url (http://localhost:8069)" name="url" id="url" required><br>
+      <label for="username">Username :</label>
+      <input type="text" placeholder="Enter username" name="username" id="username" required><br>
+      <label for="password">Password :</label>
+      <input type="password" placeholder="Enter password" name="odoo_password" id="psw" required><br>
+      <hr>
+      <button type="submit" class="btn btn-dark">Register</button>
+    </div>
+    <br>
+    <div class="container signin">
+      <p>Already registered? <a href="{% url 'login' %}">Log in </a>!</p>
+    </div>
+  </form>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+<p class="messages_error">
+  {{ message }}
+</p>
+{% endfor %}
+{% endif %}
+
+{%endblock%}
