@@ -31,5 +31,5 @@ Go to the project directory (realtor_client) and start the django interface
 ```
 
 Open the generated link in your web browser.
-## Social media
+## Social Media
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://be.linkedin.com/in/yahya-ouamar)
